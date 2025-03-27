@@ -2,7 +2,7 @@ from google import genai
 import speech_recognition as sr
 import pyttsx3
 
-client = genai.Client(api_key="AIzaSyDC2603M6IyhlYlGirpom8DpDFSlzyw5Hk")
+client = genai.Client(api_key="<YOUR_API_KEY>")
 
 engine = pyttsx3.init()
 

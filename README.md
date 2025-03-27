@@ -56,10 +56,6 @@
 - The voice assistant will start listening for your input.
 - Say "exit" to terminate the program.
 
-## License
-
-- This project is licensed under the MIT License. See the LICENSE file for details.
-
 ## Acknowledgments
 
 - Google GenAI for the AI-powered responses.

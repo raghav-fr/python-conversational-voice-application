@@ -29,7 +29,7 @@ def listen():
             return listen()
 
         except sr.RequestError:
-            return "Speech recognition service is unavailable."
+            return "Request Error"
 
 def gemini(prompt):
     response = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
@@ -39,13 +39,17 @@ def main():
     print("Voice Assistant is running... Say 'exit' to stop.")
     while True:
         usr_input = listen()
-        print("You:", usr_input)
-
         if "exit" in usr_input.lower():
+            print("You:", usr_input)
             print("Goodbye!")
             speak("Goodbye!")
             break
 
+        if "request error" in usr_input.lower():
+            print("Speech recognition service is unavailable.")
+            break
+        
+        print("You:", usr_input)
         response = gemini(usr_input)
         print("Assistant:", response)
         speak(response)

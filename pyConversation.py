@@ -5,23 +5,20 @@ import pyttsx3
 client = genai.Client(api_key="<YOUR_API_KEY>")
 
 engine = pyttsx3.init()
+chat = client.chats.create(model="gemini-2.0-flash")
+
 
 def speak(text):
     engine.say(text)
     engine.runAndWait()
 
 def listen():
-    # text = input("Enter your text: ")
-
-    # try:
-    #     return text
-    
     recog = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
         recog.adjust_for_ambient_noise(source)
         try:
-            audio = recog.listen(source)
+            audio = recog.listen(source, phrase_time_limit=10, timeout=10)
             text = recog.recognize_google(audio)
             return text
         except sr.UnknownValueError:
@@ -29,10 +26,10 @@ def listen():
             return listen()
 
         except sr.RequestError:
-            return "Request Error"
+            return "Request error" 
 
 def gemini(prompt):
-    response = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
+    response = chat.send_message(prompt)
     return response.text if response else "Sorry, I couldn't process your request."
 
 def main():
